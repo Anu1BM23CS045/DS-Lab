@@ -136,5 +136,49 @@ void postorder(node *temp)
 
 void display()
 {
-    printf("hehe");
+    node * q[25];
+    int front = -1, rear = -1;
+    void addq(node * temp)
+    {
+        if (front == -1 && rear == -1)
+            front = 0;
+        q[++rear] = temp;
+    }
+    node *delq()
+    {
+        node *temp = q[front];
+        if (front == rear)
+        {
+            front = -1;
+            rear = -1;
+        }
+        else
+        {
+            front++;
+        }
+        return temp;
+    }
+    node *ptr = root;
+    if (ptr == NULL)
+    {
+        printf("Tree is empty\n");
+        return;
+    }
+    addq(ptr);
+    printf("Binary tree Level by level:");
+    while(1)
+    {
+        ptr=delq();
+        if(ptr!=NULL)
+        {
+            printf("%c\t",ptr->data);
+            if(ptr->left!=NULL)
+                addq(ptr->left);
+            if(ptr->right!=NULL)
+                addq(ptr->right);    
+        }
+        else{
+            break;
+        }
+    }
 }
